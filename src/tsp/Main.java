@@ -17,62 +17,41 @@ public class Main {
 		
 		
 		
-		City.createCity("20.in3");
-		
-		listOfCity = City.listOfCity;
-
-		travel = Heuristique.heuristiqueTravel(listOfCity, listOfCity.size());
-		
-		
-		traveledDistance = Heuristique.getTotalDistance() - 100000;
-		System.out.println("taille ville = " + travel.size());
-		
-		System.out.println(traveledDistance);
-		
-		WriteFile.write(travel, traveledDistance,"20.out3");
-		
-		
-		
-		System.out.println("\n////////////////////////////\n");
-		
-		
-		
-		City.createCity("100.in3");
-		
-		listOfCity = City.listOfCity;
 
 		
-		travel = Heuristique.heuristiqueTravel(listOfCity, listOfCity.size());
+		ReadFile createCity20 = new ReadFile();
+		listOfCity = createCity20.read("20.in3");
+
+		travel = Heuristique.heuristiqueTravel(listOfCity);
+		traveledDistance = Heuristique.totalDistance(travel);
+		System.out.println(traveledDistance); 
+		WriteFile.write(travel, traveledDistance, "20.out3");
 		
+		
+		travel = Descente.descenteLocale(travel);
+		traveledDistance = Heuristique.totalDistance(travel);
+		System.out.println(traveledDistance); 
 	
-		traveledDistance = Heuristique.getTotalDistance() - 100000;
-		System.out.println("taille ville = " + travel.size());
-		
-		System.out.println(traveledDistance);
-		
-		WriteFile.write(travel, traveledDistance,"100.out3");
 		
 		
 		
-		System.out.println("\n////////////////////////////\n");
 		
 		
+		ReadFile createCity100 = new ReadFile();
+		listOfCity = createCity100.read("100.in3");
 		
-		City.createCity("1000.in3");
+		travel = Heuristique.heuristiqueTravel(listOfCity);
+		traveledDistance = Heuristique.totalDistance(travel);
+		WriteFile.write(travel, traveledDistance, "100.out3");
 		
-		listOfCity = City.listOfCity;
-
 		
-		travel = Heuristique.heuristiqueTravel(listOfCity, listOfCity.size());
+		ReadFile createCity1000 = new ReadFile();
+		listOfCity = createCity100.read("1000.in3");
 		
-	
-		traveledDistance = Heuristique.getTotalDistance() - 100000;
-		System.out.println("taille ville = " + travel.size());
-		
-		System.out.println(traveledDistance);
-		
+		travel = Heuristique.heuristiqueTravel(listOfCity);
+		traveledDistance = Heuristique.totalDistance(travel);
 		WriteFile.write(travel, traveledDistance, "1000.out3");
-	
+		
 		
 	}
 }

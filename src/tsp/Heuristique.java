@@ -5,86 +5,72 @@ import java.util.Collections;
 
 
 public class Heuristique {
+		
 	
-	static ArrayList<City> listOfCityLeft = new ArrayList<>();
-	static ArrayList<City> listOfCityVisited = new ArrayList<>();
-	static double totalDistance = 0;
 	
-	public static ArrayList<City> heuristiqueTravel(ArrayList<City> listOfCity, int nbrOfCity){
+	public static ArrayList<City> heuristiqueTravel(ArrayList<City> listOfCity){
 		
-			listOfCityLeft.clear();
-			listOfCityVisited.clear();
-			totalDistance = 0;
+		ArrayList<City> visitedCity = new ArrayList<>();
+	
+		//on fait un premier parcour avec la premiere ville enregistrer
+		visitedCity.add(listOfCity.get(0));
+		listOfCity.remove(0);
+		int nbrOfCity = listOfCity.size();
 			
+	
+		for (int i = 0; i < nbrOfCity; i++ ) {
+			City nearestCity = nearestCity(visitedCity.get(i), listOfCity);
 			
-			for (int j = 0; j < listOfCity.size(); j++) {
-				
-				listOfCityLeft.add(listOfCity.get(j));
-				
-			}
+			listOfCity.remove(nearestCity);
+			visitedCity.add(nearestCity);
+			
+		}
 		
-			int indexOfCityToRemove;
-			
-			listOfCityVisited.add(listOfCityLeft.get(0));
-			listOfCityLeft.remove(0);
-			
 		
-			
-			for (int i = 0; i < nbrOfCity - 1; i++ ) {
-				
-				indexOfCityToRemove = distanceToCity(listOfCityVisited.get(i), listOfCityLeft);
-				listOfCityVisited.add(listOfCityLeft.get(indexOfCityToRemove));
-				listOfCityLeft.remove(indexOfCityToRemove);
-				
-			}
-			
-			
-			
-			//ajout distance du dernier voyage de la derniere ville a la premiere ville 
-			double x = listOfCityVisited.get(listOfCityVisited.size() -1).getX() - listOfCityVisited.get(0).getX();
-			double y = listOfCityVisited.get(listOfCityVisited.size() -1).getY() -  listOfCityVisited.get(0).getY();
-			double result = Math.sqrt(Math.pow(x,  2) + Math.pow(y, 2));
-			totalDistance += result;
-			
+	
+		return visitedCity;
 		
-		System.out.println(" listOfCityVisited = " + listOfCityVisited.size());
-		return listOfCityVisited;
 		
+
+	
+
 	}
 	
-	
-	public static int distanceToCity(City cityA, ArrayList<City> cityLeft) {
+	public static City nearestCity(City cityToTest, ArrayList<City> listOfCityLeft) {
 		
-		
-		
-		int sizeOfCity = cityLeft.size() - 1;
-		double result = 100000;
 		int indexOfNearestCity = 0;
 		
-		for (int i = 0; i < sizeOfCity; i++) {
+		double result = 1000000;
+		
+		for (int i = 0; i < listOfCityLeft.size(); i++) {
 			
-			double x = Math.abs(cityA.getX() - cityLeft.get(i).getX());
-			double y = Math.abs(cityA.getY() - cityLeft.get(i).getY());
+			double x = Math.abs(cityToTest.x - listOfCityLeft.get(i).x);
+			double y = Math.abs(cityToTest.y - listOfCityLeft.get(i).y);
 			
 			
 			if (result > Math.sqrt(Math.pow(x,  2) + Math.pow(y, 2))) {
 				result = Math.sqrt(Math.pow(x,  2) + Math.pow(y, 2));
 				indexOfNearestCity = i;
 				
-			}	
+			}
 			
+		}
+		return listOfCityLeft.get(indexOfNearestCity);	
+	}
+
+	public static double totalDistance(ArrayList<City> cityVisited) {
 		
+		double distance = 0;
+		
+		for (int i = 1; i < cityVisited.size(); i++) {
+			distance += City.getDistance(cityVisited.get(i), cityVisited.get(i-1));
+			
 		}
 		
-		totalDistance += result;
-		return indexOfNearestCity;
-	
-	}
-	
-
-	public static double getTotalDistance() {
-		// TODO Auto-generated method stub
-		return totalDistance;
+		distance += City.getDistance(cityVisited.get(cityVisited.size() - 1), cityVisited.get(0));
+		
+		
+		return distance;
 	}
 
 }

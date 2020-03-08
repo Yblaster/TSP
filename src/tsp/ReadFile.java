@@ -7,53 +7,33 @@ import java.util.Scanner;
 
 public class ReadFile {
 	
-	static int nbrOfCity;
-	static ArrayList<Double> listOfx = new ArrayList<>();
-	static ArrayList<Double> listOfy = new ArrayList<>();
 	
-
-  
-	
-
-	
-	public static void read(String fileName) {
+	public static ArrayList<City> read(String fileName) {
+		
+		ArrayList<City> listCity = new ArrayList<>(); 
 		
 		
 		File f = new File("src\\tsp\\Jeux_de_test\\" + fileName);
-		System.out.println("filename" + fileName);
 		
-		listOfx.clear();
-		listOfy.clear();
+		
+
 		
 		try(Scanner sc = new Scanner(f)){
 			
-			nbrOfCity = sc.nextInt();
+			sc.nextInt();
+			
 			while (sc.hasNextDouble()) {
-				listOfx.add(sc.nextDouble());
-				listOfy.add(sc.nextDouble());
+				double x = sc.nextDouble();
+				double y = sc.nextDouble();
 				
+				listCity.add(new City(x, y));
 			}	
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		System.out.println("listOfX lenght = " + listOfx.size());
-	}
-
-	public static int getNbrOfCity() {
-		return nbrOfCity;
-	}
-
-
-	public static ArrayList<Double> getListOfx() {
-		return listOfx;
-	}
-
-
-
-	public static ArrayList<Double> getListOfy() {
-		return listOfy;
+		return listCity;
 	}
 
 }
