@@ -15,26 +15,26 @@ public class Main {
 		ArrayList<City> travel = new ArrayList<>();
 		double traveledDistance;
 		
-		
-		
 
-		
+		//test éfféctuer avec 20 villes
 		ReadFile createCity20 = new ReadFile();
 		listOfCity = createCity20.read("20.in3");
 
 		travel = Heuristique.heuristiqueTravel(listOfCity);
 		traveledDistance = Heuristique.totalDistance(travel);
-		System.out.println(traveledDistance); 
+		System.out.println("distance parcouru heuristique 20.in3 : " + traveledDistance); 
 		WriteFile.write(travel, traveledDistance, "20.out3");
 		
 		
 		travel = Descente.descenteLocale(travel);
 		traveledDistance = Heuristique.totalDistance(travel);
-		System.out.println(traveledDistance); 
+		System.out.println("distance parcouru descente locale 20.in3 : " + traveledDistance); 
+		WriteFile.write(travel, traveledDistance, "20.out3");
+		
 	
 		
 		
-		
+		System.out.println("\n//////////////////////////////\n");
 		
 		
 		ReadFile createCity100 = new ReadFile();
@@ -42,16 +42,33 @@ public class Main {
 		
 		travel = Heuristique.heuristiqueTravel(listOfCity);
 		traveledDistance = Heuristique.totalDistance(travel);
+		System.out.println("distance parcouru heuristique 100.in3 : " + traveledDistance);
 		WriteFile.write(travel, traveledDistance, "100.out3");
+		
+		travel = Descente.descenteLocale(travel);
+		traveledDistance = Heuristique.totalDistance(travel);
+		System.out.println("distance parcouru descente locale 100.in3 : " + traveledDistance);
+		WriteFile.write(travel, traveledDistance, "100.out3");
+
+
+
+		System.out.println("\n//////////////////////////////\n");
+		
+		
 		
 		
 		ReadFile createCity1000 = new ReadFile();
-		listOfCity = createCity100.read("1000.in3");
+		listOfCity = createCity1000.read("1000.in3");
 		
 		travel = Heuristique.heuristiqueTravel(listOfCity);
 		traveledDistance = Heuristique.totalDistance(travel);
+		System.out.println("distance parcouru heuristique 1000.in3 : " + traveledDistance);
 		WriteFile.write(travel, traveledDistance, "1000.out3");
 		
+		travel = Descente.descenteLocale(travel);
+		traveledDistance = Heuristique.totalDistance(travel);
+		System.out.println("distance parcouru descente locale 1000.in3 : " + traveledDistance);
+		WriteFile.write(travel, traveledDistance, "1000.out3");
 		
 	}
 }
